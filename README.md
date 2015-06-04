@@ -7,4 +7,10 @@ Usage
 =====
 Fill up ~/.scheckrc in this format:
 
-<IP> <Port>
+```
+IP Port
+IP Port
+IP Port
+IP Port
+..etc..
+```

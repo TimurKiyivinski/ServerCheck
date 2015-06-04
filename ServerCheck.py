@@ -64,4 +64,5 @@ def main():
     else:
         return False
         
-quit(main())
+if __name__ == '__main__':
+    quit(main())
