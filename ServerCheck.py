@@ -2,6 +2,7 @@
 import socket
 import time
 import os
+import argparse
 from gi.repository import Notify
 
 #Port checking tool.
@@ -46,7 +47,7 @@ def testOpen(homeDir):
         print('An error has occured. Please check your ~/.scheckrc file.')
         return False
 
-def main():
+def main(sleepDuration):
     #Repeats the check function.
     homeDir = os.getenv("HOME")
     if homeDir != None:
@@ -54,9 +55,9 @@ def main():
         while returnOpen != False:
             #Sleep time in seconds.
             try:
-                SleepTime = 5 * 60
+                SleepTime = sleepDuration * 60
                 time.sleep(SleepTime)
-                returnOpen = testOpen()
+                returnOpen = testOpen(homeDir)
             except:
                 print('Ending.')
                 returnOpen = False
@@ -65,4 +66,8 @@ def main():
         return False
         
 if __name__ == '__main__':
-    quit(main())
+    parser = argparse.ArgumentParser(description='Checks if a server and port are up.')
+    parser.add_argument('-t', '--time', help='Minutes between checks', default=5, required=False)
+    args = parser.parse_args()
+    sleepDuration = args.time
+    quit(main(int(sleepDuration)))
